@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+final class HapticsManager {
+    
+    static let shared = HapticsManager()
+    
+    private init() {
+        
+    }
+    
+    
+}

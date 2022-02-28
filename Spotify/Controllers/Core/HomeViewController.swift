@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Home"
-        view.backgroundColor = .red
+        view.backgroundColor = .systemBackground
     }
 
 

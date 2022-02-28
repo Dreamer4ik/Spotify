@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+final class APICaller {
+    
+    static let shared = APICaller()
+    
+    private init() {
+        
+    }
+    
+    
+}
