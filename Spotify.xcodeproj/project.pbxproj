@@ -29,6 +29,7 @@
 		DF0598BE27CD4C2100A62E7D /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0598BD27CD4C2100A62E7D /* AudioTrack.swift */; };
 		DF0598C027CD4C3A00A62E7D /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0598BF27CD4C3A00A62E7D /* Artist.swift */; };
 		DF0598C227CD4C4F00A62E7D /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0598C127CD4C4F00A62E7D /* UserProfile.swift */; };
+		DF16653227CE908D0034EF4A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF16653127CE908D0034EF4A /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		DF0598BD27CD4C2100A62E7D /* AudioTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
 		DF0598BF27CD4C3A00A62E7D /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		DF0598C127CD4C4F00A62E7D /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		DF16653127CE908D0034EF4A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				DF05988427CD45F900A62E7D /* AppDelegate.swift */,
 				DF05988627CD45F900A62E7D /* SceneDelegate.swift */,
 				DF05988D27CD45F900A62E7D /* Assets.xcassets */,
+				DF16653127CE908D0034EF4A /* Extension.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				DF05988927CD45F900A62E7D /* HomeViewController.swift in Sources */,
 				DF0598BA27CD4BEB00A62E7D /* HapticsManager.swift in Sources */,
 				DF0598BE27CD4C2100A62E7D /* AudioTrack.swift in Sources */,
+				DF16653227CE908D0034EF4A /* Extension.swift in Sources */,
 				DF0598A827CD4A7300A62E7D /* AuthViewController.swift in Sources */,
 				DF05988527CD45F900A62E7D /* AppDelegate.swift in Sources */,
 				DF0598A327CD49E300A62E7D /* LibraryViewController.swift in Sources */,
