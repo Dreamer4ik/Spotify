@@ -11,11 +11,13 @@ final class AuthManager {
     
     static let shared = AuthManager()
     
+    private var refreshingToken = false
+    
     struct Constants {
         static let clientID = "d5c7ff47351a4a368475dcbc1df73b2c"
         static let clientSecret = "e4919ec42e374b0f9ed125b309012805"
         static let tokenAPIURL = "https://accounts.spotify.com/api/token"
-        static let redirectURI = "https://www.google.com.ua/"
+        static let redirectURI = "https://www.google.com.ua"
         static let scopes = "user-read-private%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20user-follow-read%20user-library-modify%20user-library-read%20user-read-email"
     }
     
@@ -73,7 +75,7 @@ final class AuthManager {
                          value: code),
             URLQueryItem(name: "redirect_uri",
                          value: Constants.redirectURI),
-
+            
         ]
         
         var request = URLRequest(url: url)
@@ -111,11 +113,39 @@ final class AuthManager {
         task.resume()
     }
     
-    public func refreshTokenIFNeeded(completion: @escaping (Bool) -> Void) {
-//        guard shouldRefrechToken else {
-//            completion(true)
-//            return
-//        }
+    private var onRefreshBlocks = [((String) -> Void)]()
+    /// Supplies valid token to be used with API Calls
+    public func withValidToken(completion: @escaping (String) -> Void) {
+        guard !refreshingToken else {
+            // Append the completion
+            onRefreshBlocks.append(completion)
+            return
+        }
+        
+        if shouldRefrechToken {
+            // Refresh
+            refreshTokenIFNeeded { [weak self] success in
+                
+                if let token = self?.accessToken, success {
+                    completion(token)
+                }
+                
+            }
+        }
+        else if let token = accessToken {
+            completion(token)
+        }
+    }
+    
+    public func refreshTokenIFNeeded(completion: ((Bool) -> Void)?) {
+        guard !refreshingToken else {
+            return
+        }
+        
+        guard shouldRefrechToken else {
+            completion?(true)
+            return
+        }
         guard let refreshToken = self.refreshToken else {
             return
         }
@@ -124,6 +154,8 @@ final class AuthManager {
         guard let url = URL(string: Constants.tokenAPIURL) else {
             return
         }
+        
+        refreshingToken = true
         
         var components = URLComponents()
         components.queryItems = [
@@ -136,7 +168,7 @@ final class AuthManager {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded",
+        request.setValue("application/x-www-form-urlencoded ",
                          forHTTPHeaderField: "Content-Type")
         request.httpBody = components.query?.data(using: .utf8)
         
@@ -144,27 +176,30 @@ final class AuthManager {
         let data = basicToken.data(using: .utf8)
         guard let base64String = data?.base64EncodedString() else {
             print("Failure to get base64")
-            completion(false)
+            completion?(false)
             return
         }
-        request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
+        request.setValue("Basic \(base64String)",
+                         forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+            self?.refreshingToken = false
             guard let data = data,
                   error == nil else {
-                      completion(false)
+                      completion?(false)
                       return
                   }
             
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-                print("Successfully refreshed")
+                self?.onRefreshBlocks.forEach { $0(result.access_token) }
+                self?.onRefreshBlocks.removeAll()
                 self?.cacheToken(result: result)
-                completion(true)
+                completion?(true)
             }
             catch {
                 print(error.localizedDescription)
-                completion(false)
+                completion?(false)
             }
         }
         task.resume()
