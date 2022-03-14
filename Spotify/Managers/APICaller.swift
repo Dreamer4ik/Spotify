@@ -76,7 +76,7 @@ final class APICaller {
     
     public func getFeaturedPlaylists(completion: @escaping ((Result<FeaturedPlaylistsResponse, Error>)) -> Void) {
         createRequest(
-            with: URL(string: Constants.baseAPIURL + "/browse/featured-playlists?limit=2"),
+            with: URL(string: Constants.baseAPIURL + "/browse/featured-playlists?limit=20"),
             type: .GET
         ) { request in
             
