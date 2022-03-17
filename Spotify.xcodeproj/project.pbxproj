@@ -49,6 +49,9 @@
 		DFDB647427D91B23000B6D2E /* NewReleasesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDB647327D91B23000B6D2E /* NewReleasesResponse.swift */; };
 		DFDB647827D91D40000B6D2E /* APIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDB647727D91D40000B6D2E /* APIImage.swift */; };
 		DFDB647A27D922E5000B6D2E /* FeaturedPlaylistsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDB647927D922E5000B6D2E /* FeaturedPlaylistsResponse.swift */; };
+		DFF672A527E3455C00A5AD13 /* TitleHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF672A427E3455C00A5AD13 /* TitleHeaderCollectionReusableView.swift */; };
+		DFF672A727E34EE000A5AD13 /* AlbumTrackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF672A627E34EE000A5AD13 /* AlbumTrackCollectionViewCell.swift */; };
+		DFF672A927E3511800A5AD13 /* AlbumCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF672A827E3511800A5AD13 /* AlbumCollectionViewCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +101,9 @@
 		DFDB647327D91B23000B6D2E /* NewReleasesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesResponse.swift; sourceTree = "<group>"; };
 		DFDB647727D91D40000B6D2E /* APIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImage.swift; sourceTree = "<group>"; };
 		DFDB647927D922E5000B6D2E /* FeaturedPlaylistsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistsResponse.swift; sourceTree = "<group>"; };
+		DFF672A427E3455C00A5AD13 /* TitleHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		DFF672A627E34EE000A5AD13 /* AlbumTrackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTrackCollectionViewCell.swift; sourceTree = "<group>"; };
+		DFF672A827E3511800A5AD13 /* AlbumCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +182,8 @@
 				DF7C364E27DCBBB30011D1A2 /* Browse */,
 				DF05988F27CD45F900A62E7D /* LaunchScreen.storyboard */,
 				DFCD33CE27E24DA500CEF6B6 /* PlaylistHeaderCollectionReusableView.swift */,
+				DFF672A427E3455C00A5AD13 /* TitleHeaderCollectionReusableView.swift */,
+				DFF672A627E34EE000A5AD13 /* AlbumTrackCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -207,6 +215,7 @@
 				DF5BB81A27DFAD5400F1A770 /* FeaturedPlaylistCellViewModel.swift */,
 				DF5BB81E27DFAE5D00F1A770 /* RecommendedTrackCellViewModel.swift */,
 				DFCD33D027E257F200CEF6B6 /* PlaylistHeaderViewViewModel.swift */,
+				DFF672A827E3511800A5AD13 /* AlbumCollectionViewCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -388,7 +397,9 @@
 				DF0598BC27CD4C0C00A62E7D /* Playlist.swift in Sources */,
 				DF0E405A27DD1E3E00D81327 /* NewReleasesCellViewModel.swift in Sources */,
 				DF5BB81F27DFAE5D00F1A770 /* RecommendedTrackCellViewModel.swift in Sources */,
+				DFF672A927E3511800A5AD13 /* AlbumCollectionViewCellViewModel.swift in Sources */,
 				DF0598B627CD4BA500A62E7D /* AuthManager.swift in Sources */,
+				DFF672A527E3455C00A5AD13 /* TitleHeaderCollectionReusableView.swift in Sources */,
 				DF61E8A827E0DBB300238FEC /* AlbumViewController.swift in Sources */,
 				DFCD33D127E257F200CEF6B6 /* PlaylistHeaderViewViewModel.swift in Sources */,
 				DF5BB81B27DFAD5400F1A770 /* FeaturedPlaylistCellViewModel.swift in Sources */,
@@ -400,6 +411,7 @@
 				DF0598BA27CD4BEB00A62E7D /* HapticsManager.swift in Sources */,
 				DFBBBEC727D00AF000872960 /* AuthResponse.swift in Sources */,
 				DFDB647427D91B23000B6D2E /* NewReleasesResponse.swift in Sources */,
+				DFF672A727E34EE000A5AD13 /* AlbumTrackCollectionViewCell.swift in Sources */,
 				DF686B9C27DBD92000B8C8AC /* RecommendationsResponse.swift in Sources */,
 				DF0598BE27CD4C2100A62E7D /* AudioTrack.swift in Sources */,
 				DF16653227CE908D0034EF4A /* Extension.swift in Sources */,
