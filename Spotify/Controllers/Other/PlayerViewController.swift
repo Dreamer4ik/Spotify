@@ -6,8 +6,19 @@
 //
 
 import UIKit
+import SDWebImage
+
+protocol PlayerViewControllerDelegate: AnyObject {
+    func didTapPlayPause()
+    func didTapForward()
+    func didTapBack()
+    func didSlideSlider(_ value: Float)
+}
 
 class PlayerViewController: UIViewController {
+    
+    weak var dataSource: PlayerDataSource?
+    weak var delegate: PlayerViewControllerDelegate?
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -17,7 +28,7 @@ class PlayerViewController: UIViewController {
     }()
     
     private let controlsView = PlayerControlsView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -25,7 +36,8 @@ class PlayerViewController: UIViewController {
         view.addSubview(controlsView)
         controlsView.delegate = self
         configureBarButtons()
-  
+        configure()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -44,17 +56,26 @@ class PlayerViewController: UIViewController {
             height: view.height-imageView.height-view.safeAreaInsets.top-view.safeAreaInsets.bottom-15
         )
     }
-  
+    
+    private func configure() {
+        imageView.sd_setImage(with: dataSource?.imageURL, completed: nil)
+        controlsView.configure(
+            with: PlayerControlsViewModel(
+                title: dataSource?.songName,
+                subtitle: dataSource?.subtitle
+            ))
+    }
+    
     private func configureBarButtons() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close,
                                                            target: self,
                                                            action: #selector(didTapClose))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
-                                                           target: self,
-                                                           action: #selector(didTapAction))
+                                                            target: self,
+                                                            action: #selector(didTapAction))
     }
-
-   @objc private func didTapClose() {
+    
+    @objc private func didTapClose() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -64,16 +85,20 @@ class PlayerViewController: UIViewController {
 }
 
 extension PlayerViewController: PlayerControlsViewDelegate {
+    func playerControlsViewDidSlideVolume(_ playerControlsView: PlayerControlsView, didSlideSlider value: Float) {
+        delegate?.didSlideSlider(value)
+    }
+    
     func playerControlsViewDidTapPlayPauseButton(_ playerControlsView: PlayerControlsView) {
-        print("playerControlsViewDidTapPlayPauseButton")
+        delegate?.didTapPlayPause()
     }
     
     func playerControlsViewDidTapForwardButton(_ playerControlsView: PlayerControlsView) {
-        print("playerControlsViewDidTapForwardButton")
+        delegate?.didTapForward()
     }
     
     func playerControlsViewDidTapBackButton(_ playerControlsView: PlayerControlsView) {
-        print("playerControlsViewDidTapBackButton")
+        delegate?.didTapBack()
     }
     
     

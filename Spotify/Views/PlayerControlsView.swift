@@ -12,9 +12,17 @@ protocol PlayerControlsViewDelegate: AnyObject {
     func playerControlsViewDidTapPlayPauseButton(_ playerControlsView: PlayerControlsView)
     func playerControlsViewDidTapForwardButton(_ playerControlsView: PlayerControlsView)
     func playerControlsViewDidTapBackButton(_ playerControlsView: PlayerControlsView)
+    func playerControlsViewDidSlideVolume(_ playerControlsView: PlayerControlsView, didSlideSlider value: Float)
+}
+
+struct PlayerControlsViewModel {
+    let title: String?
+    let subtitle: String?
 }
 
 final class PlayerControlsView: UIView {
+    
+    private var isPlaying = true
     
     weak var delegate: PlayerControlsViewDelegate?
     
@@ -73,6 +81,10 @@ final class PlayerControlsView: UIView {
         backgroundColor = .clear
         addSubview(volumeSlider)
         
+        volumeSlider.addTarget(self,
+                               action: #selector(didSlideSlider(_:)),
+                               for: .valueChanged)
+        
         addSubview(nameLabel)
         addSubview(subtitleLabel)
         
@@ -91,6 +103,11 @@ final class PlayerControlsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc private func didSlideSlider(_ slider: UISlider) {
+        let value = slider.value
+        delegate?.playerControlsViewDidSlideVolume(self, didSlideSlider: value)
+    }
+    
     @objc private func didTapBack() {
         delegate?.playerControlsViewDidTapBackButton(self)
     }
@@ -100,7 +117,16 @@ final class PlayerControlsView: UIView {
     }
     
     @objc private func didTapPlayPause() {
+        self.isPlaying = !isPlaying
         delegate?.playerControlsViewDidTapPlayPauseButton(self)
+        
+        // Update icon
+        let pause = UIImage(systemName: "pause",
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))
+        
+        let play = UIImage(systemName: "play.fill",
+                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))
+        playPauseButton.setImage(isPlaying ? pause : play, for: .normal)
     }
     
     override func layoutSubviews() {
@@ -148,5 +174,10 @@ final class PlayerControlsView: UIView {
             width: buttonSize,
             height: buttonSize
         )
+    }
+    
+    func configure(with viewModel: PlayerControlsViewModel) {
+        nameLabel.text = viewModel.title
+        subtitleLabel.text = viewModel.subtitle
     }
 }
